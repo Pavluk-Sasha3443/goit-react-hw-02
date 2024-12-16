@@ -14,24 +14,21 @@ function App() {
   });
 
   const totalReverse = reverses.good + reverses.neutral + reverses.bad;
-  const PositiveReverse =
-    totalReverse > 0 ? Math.round((reverses.good / totalReverse) * 100) : 0;
+  const PositiveReverse = Math.round((reverses.good / totalReverse) * 100);
 
   const updateReverse = (reverseType) => {
-    setReverse((prevReverses) => ({
-      ...prevReverses,
-      [reverseType]: prevReverses[reverseType] + 1,
-    }));
+    setReverse({
+      ...reverses,
+      [reverseType]: reverses[reverseType] + 1,
+    });
   };
 
   const clearReverse = () => {
-    setReverse({ good: 0, neutral: 0, bad: 0 });
+    setReverse({ ...reverses, neutral: 0, good: 0, bad: 0 });
   };
-
   useEffect(() => {
     window.localStorage.setItem("reverses", JSON.stringify(reverses));
   }, [reverses]);
-
   return (
     <>
       <Description />
@@ -40,19 +37,20 @@ function App() {
         totalReverse={totalReverse}
         clear={clearReverse}
       />
-      {totalReverse > 0 ? (
-        <Feedback
-          good={reverses.good}
-          neutral={reverses.neutral}
-          bad={reverses.bad}
-          totalReverse={totalReverse}
-          positive={PositiveReverse}
-        />
-      ) : (
-        <Notification totalReverse={totalReverse} />
-      )}
+      <>
+        {totalReverse > 0 ? (
+          <Feedback
+            good={reverses.good}
+            neutral={reverses.neutral}
+            bad={reverses.bad}
+            totalReverse={totalReverse}
+            positive={PositiveReverse}
+          />
+        ) : (
+          <Notification totalReverse={totalReverse} />
+        )}
+      </>
     </>
   );
 }
-
 export default App;
