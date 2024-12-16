@@ -1,6 +1,6 @@
 import css from "./Notification.module.css";
 
-const Notification = ({ totalFeedback }) => {
-  return <p className={css.tetx}>{!totalFeedback ? `No feedback yet` : ``}</p>;
+const Notification = ({ totalReverse }) => {
+  return <p className={css.tetx}>{!totalReverse ? `No feedback yet` : ``}</p>;
 };
 export default Notification;

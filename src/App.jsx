@@ -1,4 +1,3 @@
-import "./App.css";
 import Description from "./components/Description/Description.jsx";
 import Options from "./components/Options/Options.jsx";
 import Feedback from "./components/Feedback/Feedback.jsx";
@@ -6,52 +5,54 @@ import Notification from "./components/Notification/Notification.jsx";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [feedbacks, setFeedback] = useState(() => {
-    const localFeedbacks = window.localStorage.getItem("feedbacks");
-    if (localFeedbacks !== null) {
-      return JSON.parse(localFeedbacks)
+  const [reverses, setReverse] = useState(() => {
+    const localReverses = window.localStorage.getItem("reverses");
+    if (localReverses !== null) {
+      return JSON.parse(localReverses);
     }
-    return { good: 0, neutral: 0, bad: 0 }
+    return { good: 0, neutral: 0, bad: 0 };
   });
 
-  const totalFeedback = feedbacks.good + feedbacks.neutral + feedbacks.bad;
-  const PositiveFeedback = Math.round((feedbacks.good / totalFeedback) * 100)
+  const totalReverse = reverses.good + reverses.neutral + reverses.bad;
+  const PositiveReverse =
+    totalReverse > 0 ? Math.round((reverses.good / totalReverse) * 100) : 0;
 
-  const updateFeedback = (feedbackType) => {
-    setFeedback({
-      ...feedbacks,
-      [feedbackType]: feedbacks[feedbackType] + 1,
-    })
-  }
+  const updateReverse = (reverseType) => {
+    setReverse((prevReverses) => ({
+      ...prevReverses,
+      [reverseType]: prevReverses[reverseType] + 1,
+    }));
+  };
 
-  const clearFeedback = () => {
-    setFeedback({ ...feedbacks, neutral: 0, good: 0, bad: 0 });
-  }
+  const clearReverse = () => {
+    setReverse({ good: 0, neutral: 0, bad: 0 });
+  };
+
   useEffect(() => {
-    window.localStorage.setItem("feedbacks", JSON.stringify(feedbacks))
-  }, [feedbacks])
+    window.localStorage.setItem("reverses", JSON.stringify(reverses));
+  }, [reverses]);
+
   return (
     <>
       <Description />
       <Options
-        update={updateFeedback}
-        totalFeedback={totalFeedback}
-        clear={clearFeedback}
+        update={updateReverse}
+        totalReverse={totalReverse}
+        clear={clearReverse}
       />
-      <>
-        {totalFeedback > 0 ? 
-          <Feedback
-            good={feedbacks.good}
-            neutral={feedbacks.neutral}
-            bad={feedbacks.bad}
-            totalFeedback={totalFeedback}
-            positive={PositiveFeedback}
-          />
-        
-          : <Notification totalFeedback={totalFeedback} />
-        }
-      </>
+      {totalReverse > 0 ? (
+        <Feedback
+          good={reverses.good}
+          neutral={reverses.neutral}
+          bad={reverses.bad}
+          totalReverse={totalReverse}
+          positive={PositiveReverse}
+        />
+      ) : (
+        <Notification totalReverse={totalReverse} />
+      )}
     </>
-  )
+  );
 }
-export default App
+
+export default App;

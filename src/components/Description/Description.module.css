@@ -5,8 +5,12 @@
   font-size: 48px;
   color: rgb(0, 0, 0);
   margin-bottom: 20px;
+  line-height: 1.5;
 }
 .text {
   font-size: 24px;
   color: rgb(0, 0, 0);
+}
+.span {
+  color: rgb(131, 23, 232);
 }
