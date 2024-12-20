@@ -1,7 +1,7 @@
 import css from "./Options.module.css";
 import clsx from "clsx";
 
-const Options = ({ update, totalReverse, clear }) => {
+const Options = ({ update, totalFeedback, clear }) => {
   return (
     <div className={css.opt}>
       <button
@@ -30,7 +30,7 @@ const Options = ({ update, totalReverse, clear }) => {
       </button>
       <button
         onClick={clear}
-        className={clsx(totalReverse ? css.btn : css.sort)}
+        className={clsx(totalFeedback ? css.btn : css.sort)}
       >
         Reset
       </button>
