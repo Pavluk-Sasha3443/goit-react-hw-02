@@ -38,17 +38,17 @@ function App() {
         clear={clearFeedback}
       />
       <>
-        {totalFeedback > 0 ? 
+        {totalFeedback > 0 ? (
           <Feedback
             good={feedbacks.good}
             neutral={feedbacks.neutral}
             bad={feedbacks.bad}
-            totalReverse={totalFeedback}
+            totalFeedback={totalFeedback}
             positive={PositiveFeedback}
           />
-        : 
+        ) : (
           <Notification totalFeedback={totalFeedback} />
-        }
+        )}
       </>
     </>
   );
