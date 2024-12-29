@@ -28,12 +28,14 @@ const Options = ({ update, totalFeedback, clear }) => {
       >
         Bad
       </button>
-      <button
-        onClick={clear}
-        className={clsx(totalFeedback ? css.btn : css.sort)}
-      >
-        Reset
-      </button>
+      {totalFeedback > 0 && (
+        <button
+          onClick={clear}
+          className={clsx(totalFeedback ? css.btn : css.sort)}
+        >
+          Reset
+        </button>
+      )}
     </div>
   );
 };
